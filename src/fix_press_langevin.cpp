@@ -363,14 +363,22 @@ FixPressLangevin::FixPressLangevin(LAMMPS *lmp, int narg, char **arg) :
   double nkt = (atom->natoms + 1) * kt;
   for (int i = 0; i < 6; i++) {
     if (p_ltime > 0.0)
+    // if provided, \alpha~/Q:=friction
+    // however, current docs Q/\alpha~:=friction
       p_fric[i] = p_ltime;
     else
+     // by default \alpha~/Q:=Pdamp
       p_fric[i] = p_period[i];
   }
 
   for (int i = 0; i < 6; i++) {
     p_mass[i] = nkt * p_period[i] * p_period[i];
+    // p_fric= \alpha~/Q
     p_alpha[i] = p_mass[i] * p_fric[i];
+
+    // mapping to eq. 15,16:
+    // \alpha~ = p_alpha
+    // Q = p_mass
     gjfa[i] = (1.0 - p_alpha[i] * update->dt / 2.0 / p_mass[i]) /
         (1.0 + p_alpha[i] * update->dt / 2.0 / p_mass[i]);
     gjfb[i] = 1. / (1.0 + p_alpha[i] * update->dt / 2.0 / p_mass[i]);
@@ -591,7 +599,8 @@ void FixPressLangevin::couple_kinetic()
   // kinetic part
 
   if (dimension == 3)
-    volume = domain->xprd * domain->yprd * domain->zprd;
+    // volume = domain->xprd * domain->yprd * domain->zprd;
+    volume = domain->xprd;
   else
     volume = domain->xprd * domain->yprd;
 

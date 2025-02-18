@@ -709,7 +709,10 @@ void FixLangevin::post_force_templated()
         f[i][1] *= gjfa;
         f[i][2] *= gjfa;
       }
-
+      
+      fran[1]=0.;
+      fran[2]=0.;
+      
       f[i][0] += fdrag[0] + fran[0];
       f[i][1] += fdrag[1] + fran[1];
       f[i][2] += fdrag[2] + fran[2];
