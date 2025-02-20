@@ -66,8 +66,8 @@ void BondEpslog::compute(int eflag, int vflag)
     type = bondlist[n][2];
 
     delx = x[i1][0] - x[i2][0];
-
-    rx=abs(delx);
+    
+    rx=delx>0?delx:-delx;
     
     fx=(eps[type]/rx-0.5)/delx;
 
@@ -84,7 +84,6 @@ void BondEpslog::compute(int eflag, int vflag)
       f[i2][0] -= fx;
     }
 
-    
     if (evflag) ev_tally_xyz(i1, i2, nlocal, newton_bond, ebond, fx,0.,0., delx, 1.0, 1.0);
   }
 }
