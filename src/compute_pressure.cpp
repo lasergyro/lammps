@@ -239,7 +239,8 @@ double ComputePressure::compute_scalar()
   }
 
   if (dimension == 3) {
-    inv_volume = 1.0 / (domain->xprd * domain->yprd * domain->zprd);
+    // inv_volume = 1.0 / (domain->xprd * domain->yprd * domain->zprd);
+    inv_volume = 1.0 / (domain->xprd);
     virial_compute(3,3);
     if (keflag)
       scalar = (temperature->dof * boltz * temperature->scalar +
@@ -284,7 +285,8 @@ void ComputePressure::compute_vector()
   }
 
   if (dimension == 3) {
-    inv_volume = 1.0 / (domain->xprd * domain->yprd * domain->zprd);
+    // inv_volume = 1.0 / (domain->xprd * domain->yprd * domain->zprd);
+    inv_volume = 1.0 / (domain->xprd);
     virial_compute(6,3);
     if (keflag) {
       for (int i = 0; i < 6; i++)

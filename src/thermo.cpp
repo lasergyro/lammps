@@ -350,9 +350,9 @@ void Thermo::header()
     if (keyword_user[i].size()) head = keyword_user[i];
     if (lineflag == ONELINE) {
       if (vtype[i] == FLOAT)
-        hdr += fmt::format("{:^14} ", head);
+      hdr += fmt::format("{:20} ", head); 
       else if ((vtype[i] == INT) || (vtype[i] == BIGINT))
-        hdr += fmt::format("{:^11} ", head);
+      hdr += fmt::format("{:20} ", head);
     } else if (lineflag == YAMLLINE)
       hdr += fmt::format("'{}', ", head);
   }

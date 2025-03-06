@@ -59,7 +59,8 @@ void ComputeTemp::dof_compute()
 {
   adjust_dof_fix();
   natoms_temp = group->count(igroup);
-  dof = domain->dimension * natoms_temp;
+  // dof = domain->dimension * natoms_temp;
+  dof = 1 * natoms_temp;
   dof -= extra_dof + fix_dof;
   if (dof > 0.0)
     tfactor = force->mvv2e / (dof * force->boltz);

@@ -694,7 +694,8 @@ void FixNH::init()
   if (pstat_flag) {
     pdim = p_flag[0] + p_flag[1] + p_flag[2];
     if (vol0 == 0.0) {
-      if (dimension == 3) vol0 = domain->xprd * domain->yprd * domain->zprd;
+      // if (dimension == 3) vol0 = domain->xprd * domain->yprd * domain->zprd;
+      if (dimension == 3) vol0 = domain->xprd;
       else vol0 = domain->xprd * domain->yprd;
       h0_inv[0] = domain->h_inv[0];
       h0_inv[1] = domain->h_inv[1];
@@ -1440,7 +1441,8 @@ double FixNH::compute_scalar()
   double kt = boltz * t_target;
   double lkt_press = 0.0;
   int ich;
-  if (dimension == 3) volume = domain->xprd * domain->yprd * domain->zprd;
+  // if (dimension == 3) volume = domain->xprd * domain->yprd * domain->zprd;
+  if (dimension == 3) volume = domain->xprd;
   else volume = domain->xprd * domain->yprd;
 
   energy = 0.0;
@@ -1570,7 +1572,8 @@ double FixNH::compute_vector(int n)
   double kt = boltz * t_target;
   double lkt_press = kt;
   int ich;
-  if (dimension == 3) volume = domain->xprd * domain->yprd * domain->zprd;
+  // if (dimension == 3) volume = domain->xprd * domain->yprd * domain->zprd;
+  if (dimension == 3) volume = domain->xprd;
   else volume = domain->xprd * domain->yprd;
 
   if (tstat_flag) {
@@ -2084,7 +2087,8 @@ void FixNH::compute_sigma()
   if (nreset_h0 > 0) {
     int delta = update->ntimestep - update->beginstep;
     if (delta % nreset_h0 == 0) {
-      if (dimension == 3) vol0 = domain->xprd * domain->yprd * domain->zprd;
+      // if (dimension == 3) vol0 = domain->xprd * domain->yprd * domain->zprd;
+      if (dimension == 3) vol0 = domain->xprd;
       else vol0 = domain->xprd * domain->yprd;
       h0_inv[0] = domain->h_inv[0];
       h0_inv[1] = domain->h_inv[1];
@@ -2241,7 +2245,8 @@ void FixNH::nh_omega_dot()
 {
   double f_omega,volume;
 
-  if (dimension == 3) volume = domain->xprd*domain->yprd*domain->zprd;
+  // if (dimension == 3) volume = domain->xprd*domain->yprd*domain->zprd;
+  if (dimension == 3) volume = domain->xprd;
   else volume = domain->xprd*domain->yprd;
 
   if (deviatoric_flag) compute_deviatoric();
